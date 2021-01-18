@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { useForm } from "react-hook-form";
 import ChatBot from './ChatBot';
 import "./App.css";
