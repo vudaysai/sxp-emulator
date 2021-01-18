@@ -1,0 +1,38 @@
+.rcw-launcher {
+  background-color: #154585;
+}
+.rcw-header {
+  background-color: #154585 !important;
+}
+
+.rcw-client .rcw-message-text {
+  background-color: #accbea !important;
+}
+
+.quick-button {
+  border: 2px solid #accbea !important;
+}
+
+.rcw-new-message {
+  box-sizing: unset;
+}
+
+.quick-button:active {
+  background: #accbea;
+  color: #fff;
+}
+.rcw-response .rcw-message-text {
+  max-width: 350px;
+}
+
+.rcw-send {
+  margin-right: 5px;
+}
+
+.rcw-send > label {
+  margin-bottom: 0;
+}
+
+.rcw-widget-container {
+  margin: 0 20px 40px 0;
+}
