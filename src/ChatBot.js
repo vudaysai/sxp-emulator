@@ -5,6 +5,7 @@ import {
   Widget, addResponseMessage,
   addUserMessage,
   setQuickButtons,
+  renderCustomComponent
 } from 'react-chat-widget';
 import 'react-chat-widget/lib/styles.css';
 import './chat.css';
@@ -20,6 +21,15 @@ if (data.path) {
 const appId = data.appId;
 const fileServerURL = data.fileServerUrl;
 
+const FormattedMessage = ({ message }) => {
+  return (
+    <div className="rcw-response">
+      <div className="rcw-message-text" dangerouslySetInnerHTML={{ __html: message }} />
+      <span className="rcw-timestamp">{new Date().toTimeString().slice(0, 5)}</span>
+    </div>
+  );
+};
+
 function Chat() {
   useEffect(() => {
     socket.on('joined', (_) => {
@@ -33,10 +43,10 @@ function Chat() {
     });
     socket.on('new_message', data => {
       if (data.input_type === 'button') {
-        setQuickButtons(data.message.buttons.map(button => ({ label: button.text, value: button.value })), false)
-        return addResponseMessage(data.message.message);
+        setQuickButtons(data.message.buttons.map(button => ({ label: button.text, value: button.value })), true)
+        return renderCustomComponent(FormattedMessage, { message: data.message.message }, true);
       } else {
-        addResponseMessage(data.message);
+        renderCustomComponent(FormattedMessage, { message: data.message }, true);
       }
     });
   }, []);
