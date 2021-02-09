@@ -27,8 +27,10 @@ function App() {
         {errors.appId && <p className="error">APP ID required</p>}
         <label>User (optional)</label>
         <input name="botId" placeholder="user" ref={register} />
-        <label>File Server URL (optional)</label>
-        <input name="fileServerUrl" placeholder="https://sxp.com/" ref={register} />
+        <label>File Server Root URL (optional)</label>
+        <input name="fileServerUrl" placeholder="https://fileserver.com/" ref={register} />
+        <label>File Server Sub URL</label>
+        <input name="fileServerPath" placeholder="/upload/" ref={register} />
         <input className="form-submit" type="submit" value="Save & Reload" />
       </form>
       <ChatBot />

@@ -19,7 +19,8 @@ if (data.path) {
   socket = io(data.url);
 }
 const appId = data.appId;
-const fileServerURL = data.fileServerUrl;
+const FILE_ROOT_URL = data.fileServerUrl;
+const FILE_SUB_URL = data.fileServerPath;
 
 const FormattedMessage = ({ message }) => {
   return (
@@ -52,7 +53,7 @@ function Chat() {
   }, []);
 
   const onFileChange = async (e) => {
-    const url = fileServerURL
+    const url = FILE_ROOT_URL + FILE_SUB_URL
     const formData = new FormData();
     formData.append('file', e.target.files[0])
     const options = {
@@ -62,10 +63,16 @@ function Chat() {
       url,
     };
     let response = await axios(options)
-    let data = response.data.data
-    addUserMessage(`![vertical](${fileServerURL}file/${data[0]})`);
+    let data = response.data.data || []
+
+    data.forEach((element) => {
+      addUserMessage(`![vertical](${FILE_ROOT_URL}file/${element})`);
+    });
+
     socket.emit("new_message", {
-      attachments: [`${fileServerURL}file/${data[0]}`],
+      attachments: data.map(
+        (element) => `${FILE_ROOT_URL}file/${element}`
+      ),
       userid: botId,
       appId: appId,
     })
